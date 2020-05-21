@@ -1,7 +1,4 @@
 var selectBirth = {'year': false, 'month': false, 'day' :false};
-var curYear = '2019';
-var curMonth = '3';
-var curDay = '16';
 $(function () {
     // 选择生日
     var monthDom = $('#month');
@@ -9,23 +6,13 @@ $(function () {
     var dayDom = $('#day');
     var lastYearType = '';
     var lastDay = 0;
-
-    //设置月份
-    function setMonthFn(maxMonth) {
-	    for (var i = 1; i <= maxMonth; i++) {
-		    var monthData = '<option value=' + i + '>' + i + '</option>';
-		    monthDom.append(monthData);
-	    }
-    }
     // 月份列表
-	setMonthFn(curMonth);
-    // for (var i = 1; i <= 12; i++) {
-    //     var monthData = '<option value=' + i + '>' + i + '</option>';
-    //     monthDom.append(monthData);
-    // }
+    for (var i = 1; i <= 12; i++) {
+        var monthData = '<option value=' + i + '>' + i + '</option>';
+        monthDom.append(monthData);
+    }
     // 年份列表
     var yearNow = new Date().getFullYear();
-	yearNow = curYear;
     for (var i = yearNow; i >= 1900; i--) {
         var yearData = '<option value=' + i + '>' + i + '</option>';
         yearDom.append(yearData);
@@ -34,7 +21,6 @@ $(function () {
     monthDom.on('change', function () {
         var selectYear = parseInt(yearDom.val());
         var selectMonth = parseInt(monthDom.val());
-        monthDom.removeClass('error');
         // 月份选择不为空
         if(selectMonth) {
             var day31 = selectMonth === 1 || selectMonth === 3 || selectMonth === 5 || selectMonth === 7 || selectMonth === 8 || selectMonth === 10 || selectMonth === 12;
@@ -61,7 +47,6 @@ $(function () {
     yearDom.on('change', function () {
         var selectYear = parseInt(yearDom.val());
         var selectMonth = parseInt(monthDom.val());
-        yearDom.removeClass('error');
         var yearRun = selectYear%4===0 && selectYear%100!==0 || selectYear%400===0;
         var yearType = '';
         var setDay = 0;
@@ -83,7 +68,6 @@ $(function () {
     });
     // 选择日期
     dayDom.on('change', function () {
-        dayDom.removeClass('error');
         lastDay = parseInt(dayDom.val());
     });
     // 设置日期
